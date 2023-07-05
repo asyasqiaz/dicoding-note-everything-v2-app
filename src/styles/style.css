@@ -50,14 +50,14 @@ body {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 16px;
   border-bottom: 1px solid var(--on-background);
 }
 
-/* header h1 {
+header h1 {
   flex: 1;
-} */
+}
 
 header h1 {
   font-size: 28px;
@@ -66,7 +66,7 @@ header h1 {
 header .navigation ul {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 header .navigation ul li {
@@ -81,7 +81,7 @@ header .navigation ul li {
   background-color: transparent;
   font-family: "Inter", sans-serif;
   border: 0;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--on-background);
   cursor: pointer;
   display: flex;
@@ -95,7 +95,7 @@ header .navigation ul li {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 1px solid #aaa;
+  border-top: 1px solid var(--on-background);
 }
 
 main {
@@ -259,7 +259,7 @@ main {
   color: var(--on-background);
   display: flex;
   align-items: center;
-  margin: 0 16px;
+  margin: 0 15px;
 }
 
 .toggle-theme {
@@ -364,10 +364,22 @@ main {
 
 @media only screen and (max-width: 425px) {
   .note-app__header h1 {
-    font-size: 24px;
+    font-size: 20px;
   }
   .add-new-page__input .add-new-page__input__title,
   .detail-page__title {
     font-size: 38px;
+  }
+
+  .navigation ul li button {
+    font-size: 16px;
+  }
+
+  header .navigation ul {
+    gap: 10px;
+  }
+
+  .toggle-theme {
+    margin: 0 10px;
   }
 }
