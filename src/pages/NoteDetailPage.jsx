@@ -1,75 +1,65 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import {
   archiveNote,
   deleteNote,
   getNote,
   unarchiveNote,
-} from "../utils/local-data";
+} from "../utils/network-data";
 import ArchiveUnarchiveButton from "../components/ArchiveUnarchiveButton";
 import DeleteButton from "../components/DeleteButton";
 import NotFoundPage from "./NotFoundPage";
 import NoteDetail from "../components/NoteDetail";
 
-function NoteDetailPageWrapper() {
+function NoteDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [note, setNote] = React.useState(null);
 
-  return <NoteDetailPage id={id} navigate={navigate} />;
-}
+  React.useEffect(() => {
+    (async () => {
+      const { data } = await getNote(id);
+      setNote(data);
+    })();
+  }, [id]);
 
-class NoteDetailPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      notes: getNote(props.id),
-    };
-
-    this.onArchiveHandler = this.onArchiveHandler.bind(this);
-    this.onDeleteHandler = this.onDeleteHandler.bind(this);
+  async function onDeleteHandler(id) {
+    await deleteNote(id);
+    navigate("/");
   }
 
-  onArchiveHandler(id) {
-    if (this.state.notes.archived) {
-      unarchiveNote(id);
-      this.props.navigate("/");
+  async function onArchiveHandler(id) {
+    if (note.archived) {
+      await unarchiveNote(id);
+      navigate("/");
     } else {
-      archiveNote(id);
-      this.props.navigate("/");
+      await archiveNote(id);
+      navigate("/");
     }
   }
 
-  onDeleteHandler(id) {
-    deleteNote(id);
-    this.props.navigate("/");
-  }
-
-  render() {
-    if (this.state.notes) {
-      return (
-        <>
-          <NoteDetail {...this.state.notes} />
-          <div className="detail-page__action">
-            <ArchiveUnarchiveButton
-              id={this.props.id}
-              onArchive={this.onArchiveHandler}
-              isArchive={this.state.notes.archived}
-            />
-            <DeleteButton id={this.props.id} onDelete={this.onDeleteHandler} />
-          </div>
-        </>
-      );
-    }
-
-    return <NotFoundPage />;
-  }
+  return (
+    <>
+      {(() => {
+        if (note === null) {
+          return <NotFoundPage />;
+        }
+        return (
+          <>
+            <NoteDetail {...note} />
+            <div className="detail-page__action">
+              <ArchiveUnarchiveButton
+                id={id}
+                onArchive={onArchiveHandler}
+                isArchive={note.archived}
+              />
+              <DeleteButton id={id} onDelete={onDeleteHandler} />
+            </div>
+          </>
+        );
+      })()}
+    </>
+  );
 }
 
-NoteDetailPage.propTypes = {
-  id: PropTypes.string.isRequired,
-  navigate: PropTypes.func.isRequired,
-};
-
-export default NoteDetailPageWrapper;
+export default NoteDetailPage;
