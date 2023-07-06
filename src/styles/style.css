@@ -2,8 +2,8 @@
   --primary: #bb86fc;
   --primary-variant: #3700b3;
   --secondary: #03dac6;
-  --background: #121212;
-  --surface: #121212;
+  --background: #3b3b3b;
+  --surface: #3b3b3b;
   --error: #cf6679;
   --warning: #f39c12;
   --on-background: #ffffff;
@@ -13,7 +13,7 @@
 
 [data-theme="light"] {
   --background: #dddddd;
-  --suface: #ffffff;
+  --surface: #ffffff;
   --on-background: #333333;
   --on-background-grey: #6d6d6d;
   --on-surface: #333333;
@@ -27,6 +27,10 @@
 
 a {
   color: var(--on-background);
+}
+
+input::placeholder {
+  color: var(--on-background-grey);
 }
 
 header a,
@@ -57,9 +61,6 @@ header {
 
 header h1 {
   flex: 1;
-}
-
-header h1 {
   font-size: 28px;
 }
 
@@ -216,7 +217,8 @@ main {
   padding: 8px 0;
 }
 
-.add-new-page__input__title::placeholder {
+.add-new-page__input__title::placeholder,
+.add-new-page__input__body::placeholder {
   color: var(--on-background-grey);
 }
 
@@ -259,15 +261,6 @@ main {
   color: var(--on-background);
   display: flex;
   align-items: center;
-  margin: 0 15px;
-}
-
-.toggle-theme {
-  font-size: 36px;
-}
-
-.toggle-locale {
-  font-size: 28px;
 }
 
 .input-login,
@@ -338,6 +331,7 @@ main {
 .not-found-page__home-page-direction {
   text-align: center;
   padding-block: 0.5rem;
+  color: var(--on-background);
 }
 
 @media screen and (min-width: 650px) {
@@ -364,7 +358,7 @@ main {
 
 @media only screen and (max-width: 425px) {
   .note-app__header h1 {
-    font-size: 20px;
+    font-size: 24px;
   }
   .add-new-page__input .add-new-page__input__title,
   .detail-page__title {
@@ -376,10 +370,16 @@ main {
   }
 
   header .navigation ul {
-    gap: 10px;
+    gap: 8px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .note-app__header h1 {
+    font-size: 18px;
   }
 
-  .toggle-theme {
-    margin: 0 10px;
+  .navigation ul li button {
+    font-size: 14px;
   }
 }

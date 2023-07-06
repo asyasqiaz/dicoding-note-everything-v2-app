@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  MdOutlineLogout,
-  MdOutlineGTranslate,
-  MdOutlineStickyNote2,
-} from "react-icons/md";
+import { MdOutlineLogout, MdOutlineStickyNote2 } from "react-icons/md";
 import PropTypes from "prop-types";
+import ToggleTheme from "./ToggleTheme";
+import ToggleLocale from "./ToggleLocale";
 
 function Navigation({ logout, name }) {
   return (
@@ -19,9 +17,10 @@ function Navigation({ logout, name }) {
           </Link>
         </li>
         <li>
-          <button>
-            <MdOutlineGTranslate size={30} />
-          </button>
+          <ToggleTheme />
+        </li>
+        <li>
+          <ToggleLocale />
         </li>
         <li>
           <button onClick={logout}>

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SaveNoteButton from "./SaveNoteButton";
+import { LocaleConsumer } from "../contexts/LocaleContext";
 
 class NoteInput extends React.Component {
   constructor(props) {
@@ -50,31 +51,46 @@ class NoteInput extends React.Component {
 
   render() {
     return (
-      <form
-        className="add-new-page__input"
-        onSubmit={this.onSubmitEventHandler}
-      >
-        <p className="add-new-page__input__title__char-limit">
-          Characters left: {this.state.maxChar}
-        </p>
-        <input
-          className="add-new-page__input__title"
-          type="text"
-          placeholder="Enter note title"
-          value={this.state.title}
-          onChange={this.onTitleChangeEventHandler}
-        />
-        <textarea
-          className="add-new-page__input__body"
-          type="text"
-          placeholder="Enter note detail"
-          value={this.state.body}
-          onChange={this.onBodyChangeEventHandler}
-        ></textarea>
-        <div className="add-new-page__action">
-          <SaveNoteButton />
-        </div>
-      </form>
+      <LocaleConsumer>
+        {({ locale }) => {
+          return (
+            <form
+              className="add-new-page__input"
+              onSubmit={this.onSubmitEventHandler}
+            >
+              <p className="add-new-page__input__title__char-limit">
+                {locale === "id" ? "Sisa karakter: " : "Characters left: "}
+                {this.state.maxChar}
+              </p>
+              <input
+                className="add-new-page__input__title"
+                type="text"
+                placeholder={
+                  locale === "id"
+                    ? "Masukkan judul catatan"
+                    : "Enter note title"
+                }
+                value={this.state.title}
+                onChange={this.onTitleChangeEventHandler}
+              />
+              <textarea
+                className="add-new-page__input__body"
+                type="text"
+                placeholder={
+                  locale === "id"
+                    ? "Masukkan detail catatan"
+                    : "Enter note detail"
+                }
+                value={this.state.body}
+                onChange={this.onBodyChangeEventHandler}
+              ></textarea>
+              <div className="add-new-page__action">
+                <SaveNoteButton />
+              </div>
+            </form>
+          );
+        }}
+      </LocaleConsumer>
     );
   }
 }
