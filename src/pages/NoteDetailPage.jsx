@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   archiveNote,
@@ -10,16 +10,26 @@ import ArchiveUnarchiveButton from "../components/ArchiveUnarchiveButton";
 import DeleteButton from "../components/DeleteButton";
 import NotFoundPage from "./NotFoundPage";
 import NoteDetail from "../components/NoteDetail";
+import ClipLoader from "react-spinners/ClipLoader";
+import ThemeContext from "../contexts/ThemeContext";
+
+const override = {
+  display: "block",
+  margin: "0 auto",
+};
 
 function NoteDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [note, setNote] = React.useState(null);
+  const [loading, setLoading] = useState(true);
+  const { theme } = React.useContext(ThemeContext);
 
   React.useEffect(() => {
     (async () => {
       const { data } = await getNote(id);
       setNote(data);
+      setLoading(false);
     })();
   }, [id]);
 
@@ -41,6 +51,18 @@ function NoteDetailPage() {
   return (
     <>
       {(() => {
+        if (loading) {
+          return (
+            <ClipLoader
+              color={theme === "light" ? "#3b3b3b" : "#fff"}
+              loading={loading}
+              size={150}
+              cssOverride={override}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          );
+        }
         if (note === null) {
           return <NotFoundPage />;
         }

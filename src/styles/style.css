@@ -360,9 +360,10 @@ main {
   .note-app__header h1 {
     font-size: 24px;
   }
+
   .add-new-page__input .add-new-page__input__title,
   .detail-page__title {
-    font-size: 38px;
+    font-size: 32px;
   }
 
   .navigation ul li button {
@@ -381,5 +382,29 @@ main {
 
   .navigation ul li button {
     font-size: 14px;
+  }
+
+  .add-new-page__input .add-new-page__input__title,
+  .detail-page__title {
+    font-size: 24px;
+  }
+
+  .add-new-page__input .add-new-page__input__body,
+  .detail-page__body {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 325px) {
+  .note-app__header h1 {
+    font-size: 16px;
+  }
+
+  .navigation ul li button {
+    font-size: 12px;
+  }
+
+  header .navigation ul {
+    gap: 5px;
   }
 }
